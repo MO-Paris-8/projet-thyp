@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Données du formulaire</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <h1>Données du formulaire</h1>
+    <div id="data"></div>
+
+    <script>
+        // Remplacez l'URL ci-dessous par l'URL publique de votre feuille Google Sheets
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4kqs7nPxRrZqdYvjxnnYDpQwRQ3E9yJzAg3puWRR43eASkxsr1KzjMDymV3dqO8K7vPwi_KK91Qlf/pub?output=csv';
+
+        Papa.parse(SHEET_URL, {
+            download: true,
+            header: true,
+            complete: function(results) {
+                displayData(results.data);
+            }
+        });
+
+        function displayData(data) {
+            const dataDiv = document.getElementById('data');
+            let html = '<table border="1"><tr>';
+            
+            // En-têtes
+            for (let key in data[0]) {
+                html += `<th>${key}</th>`;
+            }
+            html += '</tr>';
+
+            // Données
+            data.forEach(row => {
+                html += '<tr>';
+                for (let key in row) {
+                    html += `<td>${row[key]}</td>`;
+                }
+                html += '</tr>';
+            });
+
+            html += '</table>';
+            dataDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
