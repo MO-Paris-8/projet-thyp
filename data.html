@@ -8,7 +8,7 @@
      <style>
         /* Style du tableau */
         table {
-            width: 90%;
+            width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             font-family: Arial, sans-serif;
@@ -35,7 +35,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: hsl(219deg 39% 56%);
+            background-color: #f4f4f4;
         }
         h1 {
             color: #333;
@@ -48,7 +48,7 @@
 
     <script>
         // lien vers Google Sheets -> telecharerment du fichier CSV
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4kqs7nPxRrZqdYvjxnnYDpQwRQ3E9yJzAg3puWRR43eASkxsr1KzjMDymV3dqO8K7vPwi_KK91Qlf/pub?output=csv';
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-C3WwfZOCzbsi7jb7NixczhjBysdB9x5KBLBkGFMT2EmxlX6BPo9_FfeiZxLLLxRHf3QpzmaLbDkl/pub?output=csv';
 
         Papa.parse(SHEET_URL, {
             download: true,
