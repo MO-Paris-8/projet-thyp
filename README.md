@@ -1,21 +1,22 @@
 # projet-thyp
-Lien du formulaire ---> https://forms.gle/aXuYEtrxTSHmnnmy9
 
 
-
------------------------------------ Présentation du projet -----------------------------------
 Application web de gestion de salle de sport:
 
-Objectif:
+# Objectif:
 Développer une application web permettant la gestion complète d'une salle de sport, facilitant les tâches administratives, améliorant l'expérience client et optimisant les ressources.
 
-Acteurs:
+# Acteurs:
   - Gérants (admin) de la salle de sport
   - Coachs 
   - Membres de la salle de sport
 
- Fonctionnalités principales:
+ # Fonctionnalités principales:
    - Gestion des membres
    - Gestion des abonnements
    - Planning et réservations
    - Gestion des équipements
+
+
+# Lien du formulaire:
+ https://forms.gle/aXuYEtrxTSHmnnmy9
