@@ -26,103 +26,103 @@ fsprtp8:InformationsGenerales a rdfs:Class ;
 # Propriétés de la classe abonne
 fsprtp8:nom a rdf:Property ;
     rdfs:label "Nom" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
 fsprtp8:prenom a rdf:Property ;
     rdfs:label "Prénom" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
 fsprtp8:email a rdf:Property ;
     rdfs:label "Email" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
 fsprtp8:dateNaissance a rdf:Property ;
     rdfs:label "Date de naissance" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
 fsprtp8:sexe a rdf:Property ;
     rdfs:label "Sexe" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
-voc:telephone a rdf:Property ;
+fsprtp8:telephone a rdf:Property ;
     rdfs:label "Numéro de téléphone" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
 fsprtp8:codePostal a rdf:Property ;
     rdfs:label "Code postal" ;
-    rdfs:domain voc:abonne .
+    rdfs:domain fsprtp8:abonne .
 
 # Propriétés de la classe InformationsGenerales
 fsprtp8:hasAbonne a rdf:Property ;
     rdfs:label "A pour abonne" ;
-    rdfs:domain voc:InformationsGenerales ;
-    rdfs:range voc:abonne .
+    rdfs:domain fsprtp8:InformationsGenerales ;
+    rdfs:range fsprtp8:abonne .
 
 fsprtp8:typeAbonnement a rdf:Property ;
     rdfs:label "Type d'abonnement" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:objectifs a rdf:Property ;
     rdfs:label "Objectifs de remise en forme" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:activitesPreferees a rdf:Property ;
     rdfs:label "Activités préférées" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:blessuresLimitations a rdf:Property ;
     rdfs:label "Avez-vous des blessures ou des limitations physiques ?" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:niveauActivite a rdf:Property ;
     rdfs:label "Niveau d'activité physique actuel" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:taille a rdf:Property ;
     rdfs:label "Taille (en cm)" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:poids a rdf:Property ;
     rdfs:label "Poids (en kg)" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:suiviProgression a rdf:Property ;
     rdfs:label "Suivi de progression" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:horairesPreferes a rdf:Property ;
     rdfs:label "Horaires préférés" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:modePaiement a rdf:Property ;
     rdfs:label "Mode de paiement" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 
 fsprtp8:planNutritionnel a rdf:Property ;
     rdfs:label "Souhaitez-vous recevoir un plan nutritionnel personnalisé ?" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:wantWorkoutPlan a rdf:Property ;
     rdfs:label "Souhaitez-vous un programme d'entraînement personnalisé ? " ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:preferredWorkoutTimes a rdf:Property ;
     rdfs:label "Horaires préférés pour s'entraîner " ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:wantWorkoutReminders a rdf:Property ;
     rdfs:label "Souhaitez-vous recevoir des rappels d'entraînement? " ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:preferredPaymentMethod a rdf:Property ;
     rdfs:label "Mode de paiement préféré" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
 fsprtp8:promoCode a rdf:Property ;
     rdfs:label "Avez-vous un code promotionnel ? " ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
 
-voc:PreferedHoures a rdf:Property ;
+fsprtp8:PreferedHoures a rdf:Property ;
     rdfs:label "Horaires préférés pour s'entraîner" ;
-    rdfs:domain voc:InformationsGenerales .
+    rdfs:domain fsprtp8:InformationsGenerales .
