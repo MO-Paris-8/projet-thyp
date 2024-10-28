@@ -2,45 +2,45 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix voc: <https://gestionsalledessports.univ-paris8.fr/onto/voc#> .
+@prefix fsprtp8: <https://gestionsalledessports.univ-paris8.fr/onto/fsprtp8#> .
 
-<https://gestionsalledessports.univ-paris8.fr/onto/voc> a owl:Ontology ;
+<https://gestionsalledessports.univ-paris8.fr/onto/fsprtp8> a owl:Ontology ;
     dcterms:title "Getion d'une salle des sports Paris 8.2" .
 
 # Définition du vocabulaire
-voc: a owl:Ontology ;
+fsprtp8: a owl:Ontology ;
     dcterms:title "Vocabulaire de gestion d'une salle des sprorts" ;
     dcterms:description "Vocabulaire pour la gestion des abonnes et leurs informations générales";
     vs:term_status "experimental" .
 
 # Classe abonne
-voc:abonne a rdfs:Class ;
+fsprtp8:abonne a rdfs:Class ;
     rdfs:label "Abonne" ;
     rdfs:comment "Personne inscrite au programme" .
 
 # Classe InformationsGenerales
-voc:InformationsGenerales a rdfs:Class ;
+fsprtp8:InformationsGenerales a rdfs:Class ;
     rdfs:label "Informations Générales" ;
     rdfs:comment "Informations générales liées à un abonne" .
 
 # Propriétés de la classe abonne
-voc:nom a rdf:Property ;
+fsprtp8:nom a rdf:Property ;
     rdfs:label "Nom" ;
     rdfs:domain voc:abonne .
 
-voc:prenom a rdf:Property ;
+fsprtp8:prenom a rdf:Property ;
     rdfs:label "Prénom" ;
     rdfs:domain voc:abonne .
 
-voc:email a rdf:Property ;
+fsprtp8:email a rdf:Property ;
     rdfs:label "Email" ;
     rdfs:domain voc:abonne .
 
-voc:dateNaissance a rdf:Property ;
+fsprtp8:dateNaissance a rdf:Property ;
     rdfs:label "Date de naissance" ;
     rdfs:domain voc:abonne .
 
-voc:sexe a rdf:Property ;
+fsprtp8:sexe a rdf:Property ;
     rdfs:label "Sexe" ;
     rdfs:domain voc:abonne .
 
@@ -48,78 +48,78 @@ voc:telephone a rdf:Property ;
     rdfs:label "Numéro de téléphone" ;
     rdfs:domain voc:abonne .
 
-voc:codePostal a rdf:Property ;
+fsprtp8:codePostal a rdf:Property ;
     rdfs:label "Code postal" ;
     rdfs:domain voc:abonne .
 
 # Propriétés de la classe InformationsGenerales
-voc:hasAbonne a rdf:Property ;
+fsprtp8:hasAbonne a rdf:Property ;
     rdfs:label "A pour abonne" ;
     rdfs:domain voc:InformationsGenerales ;
     rdfs:range voc:abonne .
 
-voc:typeAbonnement a rdf:Property ;
+fsprtp8:typeAbonnement a rdf:Property ;
     rdfs:label "Type d'abonnement" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:objectifs a rdf:Property ;
+fsprtp8:objectifs a rdf:Property ;
     rdfs:label "Objectifs de remise en forme" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:activitesPreferees a rdf:Property ;
+fsprtp8:activitesPreferees a rdf:Property ;
     rdfs:label "Activités préférées" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:blessuresLimitations a rdf:Property ;
+fsprtp8:blessuresLimitations a rdf:Property ;
     rdfs:label "Avez-vous des blessures ou des limitations physiques ?" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:niveauActivite a rdf:Property ;
+fsprtp8:niveauActivite a rdf:Property ;
     rdfs:label "Niveau d'activité physique actuel" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:taille a rdf:Property ;
+fsprtp8:taille a rdf:Property ;
     rdfs:label "Taille (en cm)" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:poids a rdf:Property ;
+fsprtp8:poids a rdf:Property ;
     rdfs:label "Poids (en kg)" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:suiviProgression a rdf:Property ;
+fsprtp8:suiviProgression a rdf:Property ;
     rdfs:label "Suivi de progression" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:horairesPreferes a rdf:Property ;
+fsprtp8:horairesPreferes a rdf:Property ;
     rdfs:label "Horaires préférés" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:modePaiement a rdf:Property ;
+fsprtp8:modePaiement a rdf:Property ;
     rdfs:label "Mode de paiement" ;
     rdfs:domain voc:InformationsGenerales .
 
 
-voc:planNutritionnel a rdf:Property ;
+fsprtp8:planNutritionnel a rdf:Property ;
     rdfs:label "Souhaitez-vous recevoir un plan nutritionnel personnalisé ?" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:wantWorkoutPlan a rdf:Property ;
+fsprtp8:wantWorkoutPlan a rdf:Property ;
     rdfs:label "Souhaitez-vous un programme d'entraînement personnalisé ? " ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:preferredWorkoutTimes a rdf:Property ;
+fsprtp8:preferredWorkoutTimes a rdf:Property ;
     rdfs:label "Horaires préférés pour s'entraîner " ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:wantWorkoutReminders a rdf:Property ;
+fsprtp8:wantWorkoutReminders a rdf:Property ;
     rdfs:label "Souhaitez-vous recevoir des rappels d'entraînement? " ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:preferredPaymentMethod a rdf:Property ;
+fsprtp8:preferredPaymentMethod a rdf:Property ;
     rdfs:label "Mode de paiement préféré" ;
     rdfs:domain voc:InformationsGenerales .
 
-voc:promoCode a rdf:Property ;
+fsprtp8:promoCode a rdf:Property ;
     rdfs:label "Avez-vous un code promotionnel ? " ;
     rdfs:domain voc:InformationsGenerales .
 
