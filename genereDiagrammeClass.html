@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramme de classe - SportSimply</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <h1>Diagramme de classe SportSimply</h1>
+    <div class="mermaid">
+        classDiagram
+        class Abonne {
+            +String title
+            +String description
+            +String email
+            +Date dateNaissance
+            +String codePostal
+            +String nom
+            +String prenom
+            +String sexe
+            +String telephone
+        }
+        
+        note for Abonne "Classe pour les informations des abonnés"
+    
+        class InformationsGenerales {
+            +String title
+            +String description
+            +Abonne hasAbonne
+            +String activitesPreferees
+            +String blessuresLimitations
+            +String promoCode
+            +String horairesPreferes
+            +String preferredWorkoutTimes
+            +String preferredPaymentMethod
+            +String niveauActivite
+            +String objectifs
+            +Number poids
+            +Boolean wantWorkoutReminders
+            +Boolean planNutritionnel
+            +Boolean wantWorkoutPlan
+            +String suiviProgression
+            +Number taille
+            +String typeAbonnement
+        }
+        
+        note for InformationsGenerales "Classe pour les informations générales des utilisateurs"
+        
+        InformationsGenerales o-- Abonne : "hasAbonne"
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+    </script>
+</body>
+</html>
