@@ -1,0 +1,82 @@
+<!-- members.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des abonnés</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-4">
+      <input type="text" id="search-input" class="px-4 py-2 border border-gray-300 rounded-lg w-full" placeholder="Rechercher un abonné...">
+    </div>
+    <table class="w-full bg-white rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700">
+          <th class="px-4 py-3 text-left">Nom</th>
+          <th class="px-4 py-3 text-left">Email</th>
+          <th class="px-4 py-3 text-left">Abonnement</th>
+          <th class="px-4 py-3 text-left">Date d'expiration</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Script D3.js -->
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
+    // Données statiques des abonnés
+    const memberData = [
+      { id: 1, name: "John Doe", email: "john@example.com", plan: "Premium", expirationDate: "2023-12-31" },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", plan: "Basic", expirationDate: "2024-06-30" },
+      { id: 3, name: "Bob Johnson", email: "bob@example.com", plan: "Premium", expirationDate: "2024-03-15" },
+      { id: 4, name: "Alice Williams", email: "alice@example.com", plan: "Basic", expirationDate: "2023-09-01" },
+      { id: 5, name: "Tom Davis", email: "tom@example.com", plan: "Premium", expirationDate: "2024-11-20" }
+    ];
+
+    // Fonction de filtrage basée sur le terme de recherche
+    function filterData() {
+      const searchTerm = d3.select("#search-input").property("value").toLowerCase();
+      const filteredData = memberData.filter(member =>
+        member.name.toLowerCase().includes(searchTerm) ||
+        member.email.toLowerCase().includes(searchTerm)
+      );
+      updateTable(filteredData);
+    }
+
+    // Fonction de mise à jour du tableau
+    function updateTable(data) {
+      const tableBody = d3.select("#table-body");
+      tableBody.selectAll("tr").remove();
+      const rows = tableBody.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr")
+        .attr("class", "border-b");
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.name);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.email);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.plan);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.expirationDate);
+    }
+
+    // Initialisation du tableau
+    updateTable(memberData);
+
+    // Gestion de l'événement de recherche
+    d3.select("#search-input")
+      .on("input", filterData);
+  </script>
+</body>
+</html>

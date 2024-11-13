@@ -1,0 +1,95 @@
+<!-- activmap.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activ'Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    #map { height: 400px; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Activ'Map</h1>
+    <div id="map"></div>
+    <div class="mt-4 grid grid-cols-2 gap-4">
+      <div class="bg-white p-4 rounded-lg shadow-md">
+        <h2 class="text-lg font-bold mb-2">Number of Events</h2>
+        <p id="events-count">10</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-md">
+        <h2 class="text-lg font-bold mb-2">Number of Adherents</h2>
+        <p id="adherents-count">500</p>
+      </div>
+    </div>
+    <div id="event-details" class="mt-4 bg-white p-4 rounded-lg shadow-md hidden">
+      <h2 class="text-lg font-bold mb-2">Event Details</h2>
+      <p id="event-address"></p>
+      <p id="event-time"></p>
+      <p id="event-participants"></p>
+      <button id="participate-btn" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Participate</button>
+      <button id="no-participate-btn" class="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">No, Thanks</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    // Add the tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Sample data for activities and competitions (replace with your own data)
+    var activities = [
+      { name: 'Activity 1', location: [51.505, -0.09], address: '123 Main St', time: '10:00 AM', participants: 20 },
+      { name: 'Activity 2', location: [51.51, -0.1], address: '456 Elm St', time: '2:00 PM', participants: 15 },
+      // Add more activities as needed
+    ];
+
+    var competitions = [
+      { name: 'Competition 1', location: [51.515, -0.08], address: '789 Oak St', time: '11:00 AM', participants: 30 },
+      { name: 'Competition 2', location: [51.52, -0.095], address: '987 Pine St', time: '3:00 PM', participants: 25 },
+      // Add more competitions as needed
+    ];
+
+    // Add markers for activities and competitions
+    activities.forEach(function(activity) {
+      L.marker(activity.location).addTo(map)
+        .bindPopup(activity.name)
+        .on('click', function() {
+          showEventDetails(activity);
+        });
+    });
+
+    competitions.forEach(function(competition) {
+      L.circleMarker(competition.location, {
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 0.5,
+        radius: 20
+      }).addTo(map)
+        .bindPopup(competition.name)
+        .on('click', function() {
+          showEventDetails(competition);
+        });
+    });
+
+    // Update statistics (replace with your own data)
+    document.getElementById('events-count').textContent = activities.length + competitions.length;
+    document.getElementById('adherents-count').textContent = '500'; // Replace with your own data
+
+    // Show event details when clicking on an activity
+    function showEventDetails(event) {
+      document.getElementById('event-address').textContent = 'Address: ' + event.address;
+      document.getElementById('event-time').textContent = 'Time: ' + event.time;
+      document.getElementById('event-participants').textContent = 'Participants: ' + event.participants;
+      document.getElementById('event-details').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
