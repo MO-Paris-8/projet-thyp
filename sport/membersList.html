@@ -19,6 +19,11 @@
           <th class="px-4 py-3 text-left">Email</th>
           <th class="px-4 py-3 text-left">Abonnement</th>
           <th class="px-4 py-3 text-left">Date d'expiration</th>
+          <th class="px-4 py-3 text-left">Hauteur (cm)</th>
+          <th class="px-4 py-3 text-left">Poids (kg)</th>
+          <th class="px-4 py-3 text-left">Fréquence cardiaque (bpm)</th>
+          <th class="px-4 py-3 text-left">Âge</th>
+          <th class="px-4 py-3 text-left">Actions</th>
         </tr>
       </thead>
       <tbody id="table-body">
@@ -31,11 +36,11 @@
   <script>
     // Données statiques des abonnés
     const memberData = [
-      { id: 1, name: "John Doe", email: "john@example.com", plan: "Premium", expirationDate: "2023-12-31" },
-      { id: 2, name: "Jane Smith", email: "jane@example.com", plan: "Basic", expirationDate: "2024-06-30" },
-      { id: 3, name: "Bob Johnson", email: "bob@example.com", plan: "Premium", expirationDate: "2024-03-15" },
-      { id: 4, name: "Alice Williams", email: "alice@example.com", plan: "Basic", expirationDate: "2023-09-01" },
-      { id: 5, name: "Tom Davis", email: "tom@example.com", plan: "Premium", expirationDate: "2024-11-20" }
+      { id: 1, name: "John Doe", email: "john@example.com", plan: "Premium", expirationDate: "2023-12-31", height: 180, weight: 75, heartRate: 60, age: 30 },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", plan: "Basic", expirationDate: "2024-06-30", height: 165, weight: 60, heartRate: 70, age: 25 },
+      { id: 3, name: "Bob Johnson", email: "bob@example.com", plan: "Premium", expirationDate: "2024-03-15", height: 175, weight: 80, heartRate: 65, age: 35 },
+      { id: 4, name: "Alice Williams", email: "alice@example.com", plan: "Basic", expirationDate: "2023-09-01", height: 160, weight: 55, heartRate: 75, age: 28 },
+      { id: 5, name: "Tom Davis", email: "tom@example.com", plan: "Premium", expirationDate: "2024-11-20", height: 185, weight: 90, heartRate: 60, age: 40 }
     ];
 
     // Fonction de filtrage basée sur le terme de recherche
@@ -69,6 +74,23 @@
       rows.append("td")
         .attr("class", "px-4 py-3")
         .text(d => d.expirationDate);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.height);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.weight);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.heartRate);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.age);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .html(d => `
+          <a href="details.html?id=${d.id}" class="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600">View Details</a>
+        `);
     }
 
     // Initialisation du tableau
