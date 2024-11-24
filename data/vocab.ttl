@@ -2,127 +2,190 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix fsprtp8: <https://gestionsalledessports.univ-paris8.fr/onto/fsprtp8#> .
+@prefix gym: <https://GymMaster.univ-paris8.fr/onto/gym#> .
 
-<https://gestionsalledessports.univ-paris8.fr/onto/fsprtp8> a owl:Ontology ;
-    dcterms:title "Getion d'une salle des sports Paris 8.2" .
+<https://GymMaster.univ-paris8.fr/onto/gym> a owl:Ontology ;
+    dcterms:title "Gestion d'une salle des sports Paris 8.2" .
 
 # Définition du vocabulaire
-fsprtp8: a owl:Ontology ;
-    dcterms:title "Vocabulaire de gestion d'une salle des sprorts" ;
-    dcterms:description "Vocabulaire pour la gestion des abonnes et leurs informations générales";
-    vs:term_status "experimental" .
+gym: a owl:Ontology ;
+    dcterms:title "Vocabulaire de gestion d'une salle des sports"@fr ;
+    dcterms:description "Vocabulaire pour la gestion des abonnés et leurs informations générales"@fr .
 
-# Classe abonne
-fsprtp8:abonne a rdfs:Class ;
-    rdfs:label "Abonne" ;
-    rdfs:comment "Personne inscrite au programme" .
+# Classe Member
+gym:Member a rdfs:Class ;
+    rdfs:label "Member"@en ;
+    rdfs:comment "Personne inscrite au programme"@fr .
 
 # Classe InformationsGenerales
-fsprtp8:InformationsGenerales a rdfs:Class ;
-    rdfs:label "Informations Générales" ;
-    rdfs:comment "Informations générales liées à un abonne" .
+gym:InformationsGenerales a rdfs:Class ;
+    rdfs:label "Informations Générales"@fr ;
+    rdfs:comment "Informations générales liées à un membre"@fr .
 
-# Propriétés de la classe abonne
-fsprtp8:nom a rdf:Property ;
-    rdfs:label "Nom" ;
-    rdfs:domain fsprtp8:abonne .
+# Classe Equipment
+gym:Equipment a rdfs:Class ;
+    rdfs:label "Equipment"@en ;
+    rdfs:comment "Équipement disponible dans la salle de sport"@fr .
 
-fsprtp8:prenom a rdf:Property ;
-    rdfs:label "Prénom" ;
-    rdfs:domain fsprtp8:abonne .
+# Classe Coach
+gym:Coach a rdfs:Class ;
+    rdfs:label "Coach"@en ;
+    rdfs:comment "Entraîneur disponible dans la salle de sport"@fr .
 
-fsprtp8:email a rdf:Property ;
-    rdfs:label "Email" ;
-    rdfs:domain fsprtp8:abonne .
+# Classe Program
+gym:Program a rdfs:Class ;
+    rdfs:label "Program"@en ;
+    rdfs:comment "Programme d'entraînement"@fr .
 
-fsprtp8:dateNaissance a rdf:Property ;
-    rdfs:label "Date de naissance" ;
-    rdfs:domain fsprtp8:abonne .
+# Classe Diet
+gym:Diet a rdfs:Class ;
+    rdfs:label "Diet"@en ;
+    rdfs:comment "Régime alimentaire"@fr .
 
-fsprtp8:sexe a rdf:Property ;
-    rdfs:label "Sexe" ;
-    rdfs:domain fsprtp8:abonne .
+# Classe Admin
+gym:Admin a rdfs:Class ;
+    rdfs:label "Admin"@en ;
+    rdfs:comment "Administrateur de la salle de sport"@fr .
 
-fsprtp8:telephone a rdf:Property ;
-    rdfs:label "Numéro de téléphone" ;
-    rdfs:domain fsprtp8:abonne .
+# Propriétés de la classe Member
+gym:nom a rdf:Property ;
+    rdfs:label "Nom"@fr ;
+    rdfs:domain gym:Member .
 
-fsprtp8:codePostal a rdf:Property ;
-    rdfs:label "Code postal" ;
-    rdfs:domain fsprtp8:abonne .
+gym:prenom a rdf:Property ;
+    rdfs:label "Prénom"@fr ;
+    rdfs:domain gym:Member .
+
+gym:email a rdf:Property ;
+    rdfs:label "Email"@fr ;
+    rdfs:domain gym:Member .
+
+gym:dateDeNaissance a rdf:Property ;
+    rdfs:label "Date de naissance"@fr ;
+    rdfs:domain gym:Member .
+
+gym:sexe a rdf:Property ;
+    rdfs:label "Sexe"@fr ;
+    rdfs:domain gym:Member .
+
+gym:numeroDeTelephone a rdf:Property ;
+    rdfs:label "Numéro de téléphone"@fr ;
+    rdfs:domain gym:Member .
+
+gym:codePostal a rdf:Property ;
+    rdfs:label "Code postal"@fr ;
+    rdfs:domain gym:Member .
 
 # Propriétés de la classe InformationsGenerales
-fsprtp8:hasAbonne a rdf:Property ;
-    rdfs:label "A pour abonne" ;
-    rdfs:domain fsprtp8:InformationsGenerales ;
-    rdfs:range fsprtp8:abonne .
+gym:hasMember a rdf:Property ;
+    rdfs:label "A pour membre"@fr ;
+    rdfs:domain gym:InformationsGenerales ;
+    rdfs:range gym:Member .
 
-fsprtp8:typeAbonnement a rdf:Property ;
-    rdfs:label "Type d'abonnement" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:typeDAbonnement a rdf:Property ;
+    rdfs:label "Type d'abonnement"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:objectifs a rdf:Property ;
-    rdfs:label "Objectifs de remise en forme" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:objectifsDeRemiseEnForme a rdf:Property ;
+    rdfs:label "Objectifs de remise en forme"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:activitesPreferees a rdf:Property ;
-    rdfs:label "Activités préférées" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:activitesPreferees a rdf:Property ;
+    rdfs:label "Activités préférées"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:blessuresLimitations a rdf:Property ;
-    rdfs:label "Avez-vous des blessures ou des limitations physiques ?" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:blessuresOuLimitations a rdf:Property ;
+    rdfs:label "Avez-vous des blessures ou des limitations physiques ?"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:niveauActivite a rdf:Property ;
-    rdfs:label "Niveau d'activité physique actuel" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:niveauDActivitePhysique a rdf:Property ;
+    rdfs:label "Niveau d'activité physique actuel"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:taille a rdf:Property ;
-    rdfs:label "Taille (en cm)" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:taille a rdf:Property ;
+    rdfs:label "Taille (en cm)"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:poids a rdf:Property ;
-    rdfs:label "Poids (en kg)" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:poids a rdf:Property ;
+    rdfs:label "Poids (en kg)"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:suiviProgression a rdf:Property ;
-    rdfs:label "Suivi de progression" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:suiviDeProgression a rdf:Property ;
+    rdfs:label "Suivi de progression"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:horairesPreferes a rdf:Property ;
-    rdfs:label "Horaires préférés" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:planNutritionnelPersonnalise a rdf:Property ;
+    rdfs:label "Souhaitez-vous recevoir un plan nutritionnel personnalisé ?"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:modePaiement a rdf:Property ;
-    rdfs:label "Mode de paiement" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:programmeDEntrainementPersonnalise a rdf:Property ;
+    rdfs:label "Souhaitez-vous un programme d'entraînement personnalisé ?"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
+gym:horairesPreferees a rdf:Property ;
+    rdfs:label "Horaires préférés pour s'entraîner"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:planNutritionnel a rdf:Property ;
-    rdfs:label "Souhaitez-vous recevoir un plan nutritionnel personnalisé ?" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:rappelsDEntrainement a rdf:Property ;
+    rdfs:label "Souhaitez-vous recevoir des rappels d'entraînement ?"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:wantWorkoutPlan a rdf:Property ;
-    rdfs:label "Souhaitez-vous un programme d'entraînement personnalisé ? " ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:modeDePaiementPrefere a rdf:Property ;
+    rdfs:label "Mode de paiement préféré"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:preferredWorkoutTimes a rdf:Property ;
-    rdfs:label "Horaires préférés pour s'entraîner " ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:codePromotionnel a rdf:Property ;
+    rdfs:label "Avez-vous un code promotionnel ?"@fr ;
+    rdfs:domain gym:InformationsGenerales .
 
-fsprtp8:wantWorkoutReminders a rdf:Property ;
-    rdfs:label "Souhaitez-vous recevoir des rappels d'entraînement? " ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+# Propriétés de la classe Equipment
+gym:equipmentName a rdf:Property ;
+    rdfs:label "Nom de l'équipement"@fr ;
+    rdfs:domain gym:Equipment .
 
-fsprtp8:preferredPaymentMethod a rdf:Property ;
-    rdfs:label "Mode de paiement préféré" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:quantity a rdf:Property ;
+    rdfs:label "Quantité"@fr ;
+    rdfs:domain gym:Equipment .
 
-fsprtp8:promoCode a rdf:Property ;
-    rdfs:label "Avez-vous un code promotionnel ? " ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+gym:status a rdf:Property ;
+    rdfs:label "État"@fr ;
+    rdfs:domain gym:Equipment .
 
-fsprtp8:PreferedHoures a rdf:Property ;
-    rdfs:label "Horaires préférés pour s'entraîner" ;
-    rdfs:domain fsprtp8:InformationsGenerales .
+# Propriétés de la classe Coach
+gym:coachName a rdf:Property ;
+    rdfs:label "Nom du coach"@fr ;
+    rdfs:domain gym:Coach .
+
+gym:specialty a rdf:Property ;
+    rdfs:label "Spécialité"@fr ;
+    rdfs:domain gym:Coach .
+
+gym:experience a rdf:Property ;
+    rdfs:label "Expérience (ans)"@fr ;
+    rdfs:domain gym:Coach .
+
+# Propriétés de la classe Program
+gym:programDescription a rdf:Property ;
+    rdfs:label "Description du programme"@fr ;
+    rdfs:domain gym:Program .
+
+# Propriétés de la classe Diet todo add rel between diet ans programm to coach
+gym:dietDescription a rdf:Property ;
+    rdfs:label "Description du régime alimentaire"@fr ;
+    rdfs:domain gym:Diet .
+
+# Propriétés de la classe Admin
+gym:managesMembers a rdf:Property ;
+    rdfs:label "Gère les membres"@fr ;
+    rdfs:domain gym:Admin ;
+    rdfs:range gym:Member .
+
+gym:managesEquipments a rdf:Property ;
+    rdfs:label "Gère les équipements"@fr ;
+    rdfs:domain gym:Admin ;
+    rdfs:range gym:Equipment .
+
+gym:managesCoaches a rdf:Property ;
+    rdfs:label "Gère les coachs"@fr ;
+    rdfs:domain gym:Admin ;
+    rdfs:range gym:Coach .
