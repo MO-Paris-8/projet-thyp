@@ -70,8 +70,8 @@
             "data_types": [],
             "vocabulary_namespace_uri": "https:\/\/GymMaster.univ-paris8.fr\/onto\/gym#",
             "vocabulary_label": "GymMaster",
-            "local_name": "managesEquipments",
-            "label": "G\u00e8re les \u00e9quipements"
+            "local_name": "adminId",
+            "label": "ID de l'admin"
         }
     ],
     "o:resource_class": {

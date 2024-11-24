@@ -47,6 +47,16 @@ gym:Admin a rdfs:Class ;
     rdfs:label "Admin"@en ;
     rdfs:comment "Administrateur de la salle de sport"@fr .
 
+# Classe ActiveMap
+gym:ActiveMap a rdfs:Class ;
+    rdfs:label "ActiveMap"@en ;
+    rdfs:comment "Carte interactive des activités et événements"@fr .
+
+# Classe Event
+gym:Event a rdfs:Class ;
+    rdfs:label "Event"@en ;
+    rdfs:comment "Événement auquel les membres peuvent s'inscrire"@fr .na
+
 # Propriétés de la classe Member
 gym:nom a rdf:Property ;
     rdfs:label "Nom"@fr ;
@@ -75,6 +85,11 @@ gym:numeroDeTelephone a rdf:Property ;
 gym:codePostal a rdf:Property ;
     rdfs:label "Code postal"@fr ;
     rdfs:domain gym:Member .
+
+gym:adminId a rdf:Property ;
+    rdfs:label "ID de l'admin"@fr ;
+    rdfs:domain gym:Member ;
+    rdfs:range gym:Admin .
 
 # Propriétés de la classe InformationsGenerales
 gym:hasMember a rdf:Property ;
@@ -151,6 +166,11 @@ gym:status a rdf:Property ;
     rdfs:label "État"@fr ;
     rdfs:domain gym:Equipment .
 
+gym:adminId a rdf:Property ;
+    rdfs:label "ID de l'admin"@fr ;
+    rdfs:domain gym:Equipment ;
+    rdfs:range gym:Admin .
+
 # Propriétés de la classe Coach
 gym:coachName a rdf:Property ;
     rdfs:label "Nom du coach"@fr ;
@@ -164,15 +184,40 @@ gym:experience a rdf:Property ;
     rdfs:label "Expérience (ans)"@fr ;
     rdfs:domain gym:Coach .
 
+gym:adminId a rdf:Property ;
+    rdfs:label "ID de l'admin"@fr ;
+    rdfs:domain gym:Coach ;
+    rdfs:range gym:Admin .
+
 # Propriétés de la classe Program
 gym:programDescription a rdf:Property ;
     rdfs:label "Description du programme"@fr ;
     rdfs:domain gym:Program .
 
-# Propriétés de la classe Diet todo add rel between diet ans programm to coach
+gym:coachId a rdf:Property ;
+    rdfs:label "ID du coach"@fr ;
+    rdfs:domain gym:Program ;
+    rdfs:range gym:Coach .
+
+gym:memberId a rdf:Property ;
+    rdfs:label "ID du membre"@fr ;
+    rdfs:domain gym:Program ;
+    rdfs:range gym:Member .
+
+# Propriétés de la classe Diet
 gym:dietDescription a rdf:Property ;
     rdfs:label "Description du régime alimentaire"@fr ;
     rdfs:domain gym:Diet .
+
+gym:coachId a rdf:Property ;
+    rdfs:label "ID du coach"@fr ;
+    rdfs:domain gym:Diet ;
+    rdfs:range gym:Coach .
+
+gym:memberId a rdf:Property ;
+    rdfs:label "ID du membre"@fr ;
+    rdfs:domain gym:Diet ;
+    rdfs:range gym:Member .
 
 # Propriétés de la classe Admin
 gym:managesMembers a rdf:Property ;
@@ -189,3 +234,38 @@ gym:managesCoaches a rdf:Property ;
     rdfs:label "Gère les coachs"@fr ;
     rdfs:domain gym:Admin ;
     rdfs:range gym:Coach .
+
+# Propriétés de la classe ActiveMap
+gym:mapName a rdf:Property ;
+    rdfs:label "Nom de la carte"@fr ;
+    rdfs:domain gym:ActiveMap .
+
+gym:location a rdf:Property ;
+    rdfs:label "Emplacement"@fr ;
+    rdfs:domain gym:ActiveMap .
+
+gym:description a rdf:Property ;
+    rdfs:label "Description"@fr ;
+    rdfs:domain gym:ActiveMap .
+
+# Propriétés de la classe Event
+gym:eventName a rdf:Property ;
+    rdfs:label "Nom de l'événement"@fr ;
+    rdfs:domain gym:Event .
+
+gym:eventDate a rdf:Property ;
+    rdfs:label "Date de l'événement"@fr ;
+    rdfs:domain gym:Event .
+
+gym:eventLocation a rdf:Property ;
+    rdfs:label "Emplacement de l'événement"@fr ;
+    rdfs:domain gym:Event .
+
+gym:eventDescription a rdf:Property ;
+    rdfs:label "Description de l'événement"@fr ;
+    rdfs:domain gym:Event .
+
+gym:memberId a rdf:Property ;
+    rdfs:label "ID du membre"@fr ;
+    rdfs:domain gym:Event ;
+    rdfs:range gym:Member .
