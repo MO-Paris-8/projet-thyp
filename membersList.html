@@ -1,0 +1,113 @@
+<!-- members.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des abonnés</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-4">
+      <input type="text" id="search-input" class="px-4 py-2 border border-gray-300 rounded-lg w-full" placeholder="Rechercher un abonné...">
+    </div>
+    <table class="w-full bg-white rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700">
+          <th class="px-4 py-3 text-left">Nom</th>
+          <th class="px-4 py-3 text-left">Email</th>
+          <th class="px-4 py-3 text-left">Abonnement</th>
+          <th class="px-4 py-3 text-left">Date d'expiration</th>
+          <th class="px-4 py-3 text-left">Hauteur (cm)</th>
+          <th class="px-4 py-3 text-left">Poids (kg)</th>
+          <th class="px-4 py-3 text-left">Fréquence cardiaque (bpm)</th>
+          <th class="px-4 py-3 text-left">Âge</th>
+          <th class="px-4 py-3 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Script D3.js -->
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
+    // Données statiques des abonnés
+    const memberData = [
+      { id: 1, name: "Melissa Ourabah", email: "melissaorb02@gmail.com", plan: "Basic", expirationDate: "29/09/2024", height: 160, weight: 55, heartRate: 75, age: 28 },
+      { id: 2, name: "Rania Moussaoui", email: "moussaoui.rania755@gmail.com", plan: "Premium", expirationDate: "29/09/2024", height: 165, weight: 60, heartRate: 70, age: 23 },
+      { id: 3, name: "Test 1", email: "test@test.com", plan: "Basic", expirationDate: "29/09/2024", height: 170, weight: 70, heartRate: 65, age: 24 },
+      { id: 4, name: "nom prenom", email: "mail@gmail.com", plan: "Premium", expirationDate: "07/10/2024", height: 175, weight: 75, heartRate: 60, age: 25 },
+      { id: 5, name: "Imane El Rhazi", email: "imane0037@gmail.com", plan: "Basic", expirationDate: "09/10/2024", height: 160, weight: 55, heartRate: 75, age: 24 },
+      { id: 6, name: "Reddy Massidi Semi", email: "massidireddy@gmail.com", plan: "Premium", expirationDate: "12/10/2024", height: 180, weight: 80, heartRate: 60, age: 28 },
+      { id: 7, name: "Samy Ouksili", email: "ouksili.samy@yahoo.com", plan: "Basic", expirationDate: "13/10/2024", height: 170, weight: 70, heartRate: 65, age: 24 },
+      { id: 8, name: "Nathan Benais", email: "nathan.benais@gmail.com", plan: "Premium", expirationDate: "13/10/2024", height: 165, weight: 60, heartRate: 70, age: 98 },
+      { id: 9, name: "Islam Mokrani", email: "mokraniislam998@gmail.com", plan: "Basic", expirationDate: "13/10/2024", height: 175, weight: 75, heartRate: 60, age: 26 },
+      { id: 10, name: "Anas Hefied", email: "a.hef2000@gmail.com", plan: "Premium", expirationDate: "13/10/2024", height: 180, weight: 80, heartRate: 65, age: 24 },
+      { id: 11, name: "Noureddine Ait Khouya", email: "noureddineaitkhouya@gmail.com", plan: "Basic", expirationDate: "14/10/2024", height: 170, weight: 70, heartRate: 70, age: 25 },
+      { id: 12, name: "Oumaima Ait Khouya", email: "oumaimaelfazazi01", plan: "Premium", expirationDate: "14/10/2024", height: 165, weight: 60, heartRate: 65, age: 23 },
+      { id: 13, name: "Yasmine Guemat", email: "yasmine.guemat97@gmail.com", plan: "Basic", expirationDate: "14/10/2024", height: 175, weight: 75, heartRate: 70, age: 25 },
+      { id: 14, name: "Alae Touil", email: "alae.touil@gmail.com", plan: "Premium", expirationDate: "31/10/2024", height: 180, weight: 80, heartRate: 60, age: 24 }
+    ];
+
+    // Fonction de filtrage basée sur le terme de recherche
+    function filterData() {
+      const searchTerm = d3.select("#search-input").property("value").toLowerCase();
+      const filteredData = memberData.filter(member =>
+        member.name.toLowerCase().includes(searchTerm) ||
+        member.email.toLowerCase().includes(searchTerm)
+      );
+      updateTable(filteredData);
+    }
+
+    // Fonction de mise à jour du tableau
+    function updateTable(data) {
+      const tableBody = d3.select("#table-body");
+      tableBody.selectAll("tr").remove();
+      const rows = tableBody.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr")
+        .attr("class", "border-b");
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.name);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.email);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.plan);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.expirationDate);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.height);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.weight);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.heartRate);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .text(d => d.age);
+      rows.append("td")
+        .attr("class", "px-4 py-3")
+        .html(d => `
+          <a href="details.html?id=${d.id}" class="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600">View Details</a>
+        `);
+    }
+
+    // Initialisation du tableau
+    updateTable(memberData);
+
+    // Gestion de l'événement de recherche
+    d3.select("#search-input")
+      .on("input", filterData);
+  </script>
+</body>
+</html>

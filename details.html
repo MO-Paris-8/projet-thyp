@@ -1,0 +1,140 @@
+<!-- details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Member Details</h1>
+    <form id="member-form">
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700">Name</label>
+        <input type="text" id="name" class="px-4 py-2 border border-gray-300 rounded-lg w-full" readonly>
+      </div>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700">Email</label>
+        <input type="email" id="email" class="px-4 py-2 border border-gray-300 rounded-lg w-full" readonly>
+      </div>
+      <div class="mb-4">
+        <label for="height" class="block text-gray-700">Height (cm)</label>
+        <input type="number" id="height" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+      </div>
+      <div class="mb-4">
+        <label for="weight" class="block text-gray-700">Weight (kg)</label>
+        <input type="number" id="weight" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+      </div>
+      <div class="mb-4">
+        <label for="heartRate" class="block text-gray-700">Heart Rate (bpm)</label>
+        <input type="number" id="heartRate" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+      </div>
+      <div class="mb-4">
+        <label for="age" class="block text-gray-700">Age</label>
+        <input type="number" id="age" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+      </div>
+      <div class="mb-4">
+        <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="assignProgram()">Assign Personalized Program</button>
+        <button type="button" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 ml-2" onclick="assignDiet()">Assign Personalized Diet</button>
+        <button type="button" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 ml-2" onclick="updateDetails()">Update Details</button>
+      </div>
+    </form>
+    <div id="program-details" class="mt-4 hidden">
+      <h2 class="text-xl font-bold mb-2">Assigned Program</h2>
+      <p id="program-description"></p>
+    </div>
+    <div id="diet-details" class="mt-4 hidden">
+      <h2 class="text-xl font-bold mb-2">Assigned Diet</h2>
+      <p id="diet-description"></p>
+    </div>
+  </div>
+
+  <script>
+    // Sample member data (replace with actual data retrieval logic)
+    const memberData = [
+      { id: 1, name: "John Doe", email: "john@example.com", plan: "Premium", expirationDate: "2023-12-31", height: 180, weight: 75, heartRate: 60, age: 30 },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", plan: "Basic", expirationDate: "2024-06-30", height: 165, weight: 60, heartRate: 70, age: 25 },
+      { id: 3, name: "Bob Johnson", email: "bob@example.com", plan: "Premium", expirationDate: "2024-03-15", height: 175, weight: 80, heartRate: 65, age: 35 },
+      { id: 4, name: "Alice Williams", email: "alice@example.com", plan: "Basic", expirationDate: "2023-09-01", height: 160, weight: 55, heartRate: 75, age: 28 },
+      { id: 5, name: "Tom Davis", email: "tom@example.com", plan: "Premium", expirationDate: "2024-11-20", height: 185, weight: 90, heartRate: 60, age: 40 }
+    ];
+
+    // Get the member ID from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberId = parseInt(urlParams.get('id'));
+
+    // Find the member data
+    const member = memberData.find(m => m.id === memberId);
+
+    // Populate the form with member data
+    if (member) {
+      document.getElementById('name').value = member.name;
+      document.getElementById('email').value = member.email;
+      document.getElementById('height').value = member.height;
+      document.getElementById('weight').value = member.weight;
+      document.getElementById('heartRate').value = member.heartRate;
+      document.getElementById('age').value = member.age;
+    }
+
+    // Function to assign a personalized program
+    function assignProgram() {
+      if (member) {
+        const height = document.getElementById('height').value;
+        const weight = document.getElementById('weight').value;
+        const heartRate = document.getElementById('heartRate').value;
+        const age = document.getElementById('age').value;
+
+        // Example logic to assign a personalized program
+        let programDescription = "Default Program";
+        if (height > 170 && weight > 70 && heartRate > 60 && age > 30) {
+          programDescription = "High-Intensity Program: Focus on cardio and strength training.";
+        } else if (height < 170 && weight < 70 && heartRate < 60 && age < 30) {
+          programDescription = "Low-Intensity Program: Focus on flexibility and endurance.";
+        } else {
+          programDescription = "Moderate-Intensity Program: Balanced workout routine.";
+        }
+
+        document.getElementById('program-description').textContent = programDescription;
+        document.getElementById('program-details').classList.remove('hidden');
+      }
+    }
+
+    // Function to assign a personalized diet
+    function assignDiet() {
+      if (member) {
+        const height = document.getElementById('height').value;
+        const weight = document.getElementById('weight').value;
+        const heartRate = document.getElementById('heartRate').value;
+        const age = document.getElementById('age').value;
+
+        // Example logic to assign a personalized diet
+        let dietDescription = "Default Diet";
+        if (height > 170 && weight > 70 && heartRate > 60 && age > 30) {
+          dietDescription = "High-Protein Diet: Focus on lean proteins and vegetables.";
+        } else if (height < 170 && weight < 70 && heartRate < 60 && age < 30) {
+          dietDescription = "Balanced Diet: Focus on a variety of nutrients.";
+        } else {
+          dietDescription = "Moderate-Protein Diet: Balanced protein intake.";
+        }
+
+        document.getElementById('diet-description').textContent = dietDescription;
+        document.getElementById('diet-details').classList.remove('hidden');
+      }
+    }
+
+    // Function to update member details
+    function updateDetails() {
+      if (member) {
+        member.height = document.getElementById('height').value;
+        member.weight = document.getElementById('weight').value;
+        member.heartRate = document.getElementById('heartRate').value;
+        member.age = document.getElementById('age').value;
+
+        alert('Details updated successfully!');
+      }
+    }
+  </script>
+</body>
+</html>

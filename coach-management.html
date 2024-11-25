@@ -1,0 +1,115 @@
+<!-- coachs.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des coachs</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Gestion des coachs</h1>
+    <div class="mb-4">
+      <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="openAddForm()">Ajouter un coach</button>
+    </div>
+    <table class="w-full bg-white rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700">
+          <th class="px-4 py-3 text-left">Nom</th>
+          <th class="px-4 py-3 text-left">Spécialité</th>
+          <th class="px-4 py-3 text-left">Expérience (ans)</th>
+          <th class="px-4 py-3 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="coach-body">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add Coach Form -->
+  <div id="add-form" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4">Ajouter un coach</h2>
+      <form id="coach-form">
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700">Nom</label>
+          <input type="text" id="name" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+        </div>
+        <div class="mb-4">
+          <label for="specialty" class="block text-gray-700">Spécialité</label>
+          <input type="text" id="specialty" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+        </div>
+        <div class="mb-4">
+          <label for="experience" class="block text-gray-700">Expérience (ans)</label>
+          <input type="number" id="experience" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+        </div>
+        <div class="flex justify-end">
+          <button type="button" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 mr-2" onclick="closeAddForm()">Annuler</button>
+          <button type="button" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onclick="addCoach()">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Sample coach data
+    const coachData = [
+      { id: 1, name: "John Doe", specialty: "Fitness", experience: 5 },
+      { id: 2, name: "Jane Smith", specialty: "Yoga", experience: 3 },
+      { id: 3, name: "Bob Johnson", specialty: "CrossFit", experience: 7 },
+    ];
+
+    // Function to open the add form
+    function openAddForm() {
+      document.getElementById('add-form').classList.remove('hidden');
+    }
+
+    // Function to close the add form
+    function closeAddForm() {
+      document.getElementById('add-form').classList.add('hidden');
+    }
+
+    // Function to add a coach
+    function addCoach() {
+      const name = document.getElementById('name').value;
+      const specialty = document.getElementById('specialty').value;
+      const experience = document.getElementById('experience').value;
+
+      const newCoach = {
+        id: coachData.length + 1,
+        name: name,
+        specialty: specialty,
+        experience: experience
+      };
+
+      coachData.push(newCoach);
+      updateTable(coachData);
+      closeAddForm();
+    }
+
+    // Function to update the table
+    function updateTable(data) {
+      const tableBody = document.getElementById('coach-body');
+      tableBody.innerHTML = '';
+      data.forEach(coach => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-4 py-3">${coach.name}</td>
+          <td class="px-4 py-3">${coach.specialty}</td>
+          <td class="px-4 py-3">${coach.experience}</td>
+          <td class="px-4 py-3">
+            <button class="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="editCoach(${coach.id})">Modifier</button>
+            <button class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 ml-2" onclick="deleteCoach(\${coach.id})">Supprimer</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Function to edit a coach
+    function editCoach(id) {
+      const coach = coachData.find(c => c.id === id);
+      if (coach) {
+        document.getElementById('name').value = coach.name;
+        document.getElementById('specialty').value =

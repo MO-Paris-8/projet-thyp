@@ -1,114 +1,27 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Données du formulaire</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-            cursor: pointer;
-        }
-        .popup {
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 2px solid #4CAF50;
-            z-index: 1000;
-        }
-        .popup .close {
-            cursor: pointer;
-            color: red;
-            float: right;
-            font-size: 18px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Données du formulaire</h1>
-    <div id="data"></div>
-
-    <!-- Popup for extra details -->
-    <div id="popup" class="popup">
-        <span class="close" onclick="closePopup()">×</span>
-        <div id="extra-details"></div>
+<body class="bg-gray-100 font-sans">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-800 text-white p-4">
+      <h1 class="text-2xl font-bold mb-4">Menu</h1>
+      <ul>
+        <li class="mb-2"><a href="membersList.html" class="hover:text-gray-300">Gestion des abonnés</a></li>
+        <li class="mb-2"><a href="equipment-management.html" class="hover:text-gray-300">Gestion du matériel</a></li>
+        <li class="mb-2"><a href="coach-management.html" class="hover:text-gray-300">Gestion des coachs</a></li>
+      </ul>
     </div>
-
-    <script>
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-C3WwfZOCzbsi7jb7NixczhjBysdB9x5KBLBkGFMT2EmxlX6BPo9_FfeiZxLLLxRHf3QpzmaLbDkl/pub?output=csv';
-
-        Papa.parse(SHEET_URL, {
-            download: true,
-            header: true,
-            complete: function(results) {
-                console.log(results.data);  // Visualiser les données pour vérifier les noms des colonnes
-                displayData(results.data);
-            }
-        });
-
-        function displayData(data) {
-            const displayedKeys = Object.keys(data[0]).slice(0, 5);  // Les 5 premières colonnes
-            const dataDiv = document.getElementById('data');
-            let html = '<table><thead><tr>';
-
-            // Afficher les noms des colonnes pour displayedKeys
-            displayedKeys.forEach(key => {
-                html += `<th>${key}</th>`;
-            });
-            html += '</tr></thead><tbody>';
-
-            // Remplir les données pour displayedKeys
-            data.forEach((row, rowIndex) => {
-                html += `<tr onclick="showExtraDetails(${rowIndex})">`;
-                displayedKeys.forEach(key => {
-                    html += `<td>${row[key] || ''}</td>`;
-                });
-                html += '</tr>';
-            });
-            html += '</tbody></table>';
-
-            dataDiv.innerHTML = html;
-
-            // Stocker les données pour une utilisation future dans le popup
-            window.extraData = data;
-        }
-
-        // Fonction pour afficher les détails supplémentaires
-        function showExtraDetails(rowIndex) {
-            const row = window.extraData[rowIndex];
-            const extraKeys = Object.keys(row).slice(5);  // Récupérer les colonnes restantes
-            let extraHtml = '<h2>Informations supplémentaires</h2>';
-
-            extraKeys.forEach(key => {
-                extraHtml += `<p><strong>${key}:</strong> ${row[key] || 'N/A'}</p>`;
-            });
-
-            document.getElementById('extra-details').innerHTML = extraHtml;
-            document.getElementById('popup').style.display = 'block';
-        }
-
-        // Fonction pour fermer le popup
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
+    <!-- Main Content -->
+    <div class="flex-1 p-4">
+      <!-- Your main content here -->
+    </div>
+  </div>
 </body>
 </html>

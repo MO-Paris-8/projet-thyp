@@ -1,0 +1,134 @@
+<!-- materiel.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion du matériel</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Gestion du matériel</h1>
+    <div class="mb-4">
+      <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="openAddForm()">Ajouter du matériel</button>
+    </div>
+    <table class="w-full bg-white rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700">
+          <th class="px-4 py-3 text-left">Nom</th>
+          <th class="px-4 py-3 text-left">Quantité</th>
+          <th class="px-4 py-3 text-left">État</th>
+          <th class="px-4 py-3 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="equipment-body">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add Equipment Form -->
+  <div id="add-form" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4">Ajouter du matériel</h2>
+      <form id="equipment-form">
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700">Nom</label>
+          <input type="text" id="name" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+        </div>
+        <div class="mb-4">
+          <label for="quantity" class="block text-gray-700">Quantité</label>
+          <input type="number" id="quantity" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+        </div>
+        <div class="mb-4">
+          <label for="status" class="block text-gray-700">État</label>
+          <input type="text" id="status" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+        </div>
+        <div class="flex justify-end">
+          <button type="button" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 mr-2" onclick="closeAddForm()">Annuler</button>
+          <button type="button" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600" onclick="addEquipment()">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Sample equipment data
+    const equipmentData = [
+      { id: 1, name: "Dumbbells", quantity: 10, status: "Available" },
+      { id: 2, name: "Yoga Mats", quantity: 5, status: "Available" },
+      { id: 3, name: "Treadmill", quantity: 2, status: "In Use" },
+    ];
+
+    // Function to open the add form
+    function openAddForm() {
+      document.getElementById('add-form').classList.remove('hidden');
+    }
+
+    // Function to close the add form
+    function closeAddForm() {
+      document.getElementById('add-form').classList.add('hidden');
+    }
+
+    // Function to add equipment
+    function addEquipment() {
+      const name = document.getElementById('name').value;
+      const quantity = document.getElementById('quantity').value;
+      const status = document.getElementById('status').value;
+
+      const newEquipment = {
+        id: equipmentData.length + 1,
+        name: name,
+        quantity: quantity,
+        status: status
+      };
+
+      equipmentData.push(newEquipment);
+      updateTable(equipmentData);
+      closeAddForm();
+    }
+
+    // Function to update the table
+    function updateTable(data) {
+      const tableBody = document.getElementById('equipment-body');
+      tableBody.innerHTML = '';
+      data.forEach(equipment => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-4 py-3">${equipment.name}</td>
+          <td class="px-4 py-3">${equipment.quantity}</td>
+          <td class="px-4 py-3">${equipment.status}</td>
+          <td class="px-4 py-3">
+            <button class="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="editEquipment(${equipment.id})">Modifier</button>
+            <button class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 ml-2" onclick="deleteEquipment(${equipment.id})">Supprimer</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Function to edit equipment
+    function editEquipment(id) {
+      const equipment = equipmentData.find(e => e.id === id);
+      if (equipment) {
+        document.getElementById('name').value = equipment.name;
+        document.getElementById('quantity').value = equipment.quantity;
+        document.getElementById('status').value = equipment.status;
+        openAddForm();
+      }
+    }
+
+    // Function to delete equipment
+    function deleteEquipment(id) {
+      const index = equipmentData.findIndex(e => e.id === id);
+      if (index !== -1) {
+        equipmentData.splice(index, 1);
+        updateTable(equipmentData);
+      }
+    }
+
+    // Initialize the table
+    updateTable(equipmentData);
+  </script>
+</body>
+</html>
