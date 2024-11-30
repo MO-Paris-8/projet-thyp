@@ -4,39 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajout d'un coach dans Omeka S</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <h1>Ajouter un coach</h1>
-    </header>
-    <main>
-        <form id="addCoachForm">
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" required><br><br>
-
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" required></textarea><br><br>
-
-            <label for="experience">Expérience (ans) :</label>
-            <input type="number" id="experience" name="experience" required><br><br>
-
-            <label for="specialty">Spécialité :</label>
-            <input type="text" id="specialty" name="specialty" required><br><br>
-
-            <label for="adminId">ID de l'admin :</label>
-            <input type="text" id="adminId" name="adminId" required><br><br>
-
-            <label for="coachName">Nom du coach :</label>
-            <input type="text" id="coachName" name="coachName" required><br><br>
-
-            <button type="submit">Ajouter</button>
-        </form>
-
-        <p id="responseMessage" style="color: green;"></p>
-    </main>
-    <footer>
-        <p>&copy; 2024 Mon Site Web</p>
-    </footer>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-2xl font-bold">Ajouter un coach</h1>
+        </header>
+        <main>
+            <form id="addCoachForm" class="bg-white p-6 rounded-lg shadow-md">
+                <div class="mb-4">
+                    <label for="experience" class="block text-gray-700">Expérience (ans) :</label>
+                    <input type="number" id="experience" name="experience" class="px-4 py-2 border border-gray-300 rounded-lg w-full" required>
+                </div>
+                <div class="mb-4">
+                    <label for="specialty" class="block text-gray-700">Spécialité :</label>
+                    <input type="text" id="specialty" name="specialty" class="px-4 py-2 border border-gray-300 rounded-lg w-full" required>
+                </div>
+                <div class="mb-4">
+                    <label for="coachName" class="block text-gray-700">Nom du coach :</label>
+                    <input type="text" id="coachName" name="coachName" class="px-4 py-2 border border-gray-300 rounded-lg w-full" required>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Ajouter</button>
+                </div>
+            </form>
+            <p id="responseMessage" class="mt-4 text-green-500"></p>
+        </main>
+        <footer class="mt-8">
+            <p>&copy; 2024 Mon Site Web</p>
+        </footer>
+    </div>
 
     <script>
         class Auth {
@@ -73,7 +71,6 @@
             }
         }
 
-        // Configuration de l'authentification
         const auth = new Auth({
             mail: 'melissaorb02@gmail.com',
             apiOmk: 'http://www.linuxhelp1.com/api/',
@@ -84,22 +81,16 @@
         document.getElementById('addCoachForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const title = document.getElementById('title').value;
-            const description = document.getElementById('description').value;
             const experience = document.getElementById('experience').value;
             const specialty = document.getElementById('specialty').value;
-            const adminId = document.getElementById('adminId').value;
             const coachName = document.getElementById('coachName').value;
 
             const data = {
-                "o:resource_template": { "o:id": 11 }, // Remplacez 11 par l'ID réel de votre template "Coach"
-                "o:resource_class": { "o:id": 1 },   // Classe correspondante
-                "dcterms:title": [{ "@value": title, "property_id": 1, "type": "literal" }],
-                "dcterms:description": [{ "@value": description, "property_id": 4, "type": "literal" }],
-                "exemple:experience": [{ "@value": experience, "property_id": 51, "type": "literal" }], // Remplacez 51 par l'ID réel
-                "exemple:specialty": [{ "@value": specialty, "property_id": 52, "type": "literal" }], // Remplacez 52 par l'ID réel
-                "exemple:adminId": [{ "@value": adminId, "property_id": 53, "type": "literal" }], // Remplacez 53 par l'ID réel
-                "exemple:coachName": [{ "@value": coachName, "property_id": 54, "type": "literal" }] // Remplacez 54 par l'ID réel
+                "o:resource_template": { "o:id": 11 }, 
+                "o:resource_class": { "o:id": 1 },   
+                "exemple:experience": [{ "@value": experience, "property_id": 51, "type": "literal" }], 
+                "exemple:specialty": [{ "@value": specialty, "property_id": 52, "type": "literal" }], 
+                "exemple:coachName": [{ "@value": coachName, "property_id": 54, "type": "literal" }] 
             };
 
             auth.createItem(data, function (result) {

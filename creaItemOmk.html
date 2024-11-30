@@ -64,7 +64,6 @@
             }
         }
 
-        // Configuration de l'authentification
         const auth = new Auth({
             mail: 'melissaorb02@gmail.com',
             apiOmk: 'http://www.linuxhelp1.com/api/',
@@ -80,11 +79,11 @@
             const familyName = document.getElementById('familyName').value;
 
             const data = {
-                "o:resource_template": { "o:id": 7 }, // ID du template "Etudiant"
-                "o:resource_class": { "o:id": 1 },   // Classe correspondante
+                "o:resource_template": { "o:id": 7 }, 
+                "o:resource_class": { "o:id": 1 },  
                 "dcterms:title": [{ "@value": title, "property_id": 1, "type": "literal" }],
                 "dcterms:description": [{ "@value": description, "property_id": 4, "type": "literal" }],
-                "foaf:familyName": [{ "@value": familyName, "property_id": 50, "type": "literal" }] // Remplacez 50 par l'ID réel
+                "foaf:familyName": [{ "@value": familyName, "property_id": 50, "type": "literal" }] 
             };
 
             auth.createItem(data, function (result) {
