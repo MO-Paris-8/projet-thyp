@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout d'un coach dans Omeka S</title>
+</head>
+<body>
+    <header>
+        <h1>Ajouter un coach</h1>
+    </header>
+    <main>
+        <form id="addCoachForm">
+            <label for="title">Titre :</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" required></textarea><br><br>
+
+            <label for="experience">Expérience (ans) :</label>
+            <input type="number" id="experience" name="experience" required><br><br>
+
+            <label for="specialty">Spécialité :</label>
+            <input type="text" id="specialty" name="specialty" required><br><br>
+
+            <label for="adminId">ID de l'admin :</label>
+            <input type="text" id="adminId" name="adminId" required><br><br>
+
+            <label for="coachName">Nom du coach :</label>
+            <input type="text" id="coachName" name="coachName" required><br><br>
+
+            <button type="submit">Ajouter</button>
+        </form>
+
+        <p id="responseMessage" style="color: green;"></p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Mon Site Web</p>
+    </footer>
+
+    <script>
+        class Auth {
+            constructor(config) {
+                this.mail = config.mail;
+                this.apiOmk = config.apiOmk;
+                this.ident = config.ident;
+                this.key = config.key;
+            }
+
+            async createItem(data, callback) {
+                const url = `${this.apiOmk}items?key_identity=${this.ident}&key_credential=${this.key}`;
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Erreur du serveur :', errorText);
+                        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    callback(result);
+                } catch (error) {
+                    console.error('Erreur lors de la création de l\'item :', error);
+                    throw error;
+                }
+            }
+        }
+
+        // Configuration de l'authentification
+        const auth = new Auth({
+            mail: 'melissaorb02@gmail.com',
+            apiOmk: 'http://www.linuxhelp1.com/api/',
+            ident: '4P0TmOxu1blxpgwLRUKH4WoGpNKI3mpv',
+            key: '4f58Swc1AfNDjAMBfrqueTj6IHrAyWv5',
+        });
+
+        document.getElementById('addCoachForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const experience = document.getElementById('experience').value;
+            const specialty = document.getElementById('specialty').value;
+            const adminId = document.getElementById('adminId').value;
+            const coachName = document.getElementById('coachName').value;
+
+            const data = {
+                "o:resource_template": { "o:id": 11 }, // Remplacez 11 par l'ID réel de votre template "Coach"
+                "o:resource_class": { "o:id": 1 },   // Classe correspondante
+                "dcterms:title": [{ "@value": title, "property_id": 1, "type": "literal" }],
+                "dcterms:description": [{ "@value": description, "property_id": 4, "type": "literal" }],
+                "exemple:experience": [{ "@value": experience, "property_id": 51, "type": "literal" }], // Remplacez 51 par l'ID réel
+                "exemple:specialty": [{ "@value": specialty, "property_id": 52, "type": "literal" }], // Remplacez 52 par l'ID réel
+                "exemple:adminId": [{ "@value": adminId, "property_id": 53, "type": "literal" }], // Remplacez 53 par l'ID réel
+                "exemple:coachName": [{ "@value": coachName, "property_id": 54, "type": "literal" }] // Remplacez 54 par l'ID réel
+            };
+
+            auth.createItem(data, function (result) {
+                document.getElementById('responseMessage').textContent = 'Coach ajouté avec succès !';
+                console.log('Réponse de l\'API :', result);
+            }).catch((error) => {
+                document.getElementById('responseMessage').style.color = 'red';
+                document.getElementById('responseMessage').textContent = 'Erreur lors de l\'ajout : ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
