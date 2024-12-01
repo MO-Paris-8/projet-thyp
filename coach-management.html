@@ -1,82 +1,109 @@
-<!-- coachs.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion des coachs</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des coachs</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-sans">
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-4">Gestion des coachs</h1>
-    <div class="mb-4">
-      <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="window.location.href='addCoach.html'">Ajouter un coach</button>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-4">Gestion des coachs</h1>
+        <div class="mb-4">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="window.location.href='addCoach.html'">Ajouter un coach</button>
+        </div>
+        <table class="w-full bg-white rounded-lg shadow-md">
+            <thead>
+                <tr class="bg-gray-200 text-gray-700">
+                    <th class="px-4 py-3 text-left">Nom</th>
+                    <th class="px-4 py-3 text-left">Spécialité</th>
+                    <th class="px-4 py-3 text-left">Expérience (ans)</th>
+                    <th class="px-4 py-3 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="coach-body">
+            </tbody>
+        </table>
     </div>
-    <table class="w-full bg-white rounded-lg shadow-md">
-      <thead>
-        <tr class="bg-gray-200 text-gray-700">
-          <th class="px-4 py-3 text-left">Nom</th>
-          <th class="px-4 py-3 text-left">Spécialité</th>
-          <th class="px-4 py-3 text-left">Expérience (ans)</th>
-          <th class="px-4 py-3 text-left">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="coach-body">
-      </tbody>
-    </table>
-  </div>
 
-  <script>
-    // Sample coach data
-    const coachData = [
-      { id: 1, name: "John Doe", specialty: "Fitness", experience: 5 },
-      { id: 2, name: "Jane Smith", specialty: "Yoga", experience: 3 },
-      { id: 3, name: "Bob Johnson", specialty: "CrossFit", experience: 7 },
-    ];
+    <script>
+        class Auth {
+            constructor(config) {
+                this.mail = config.mail;
+                this.apiOmk = config.apiOmk;
+                this.ident = config.ident;
+                this.key = config.key;
+            }
 
-    // Function to update the table
-    function updateTable(data) {
-      const tableBody = document.getElementById('coach-body');
-      tableBody.innerHTML = '';
-      data.forEach(coach => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td class="px-4 py-3">${coach.name}</td>
-          <td class="px-4 py-3">${coach.specialty}</td>
-          <td class="px-4 py-3">${coach.experience}</td>
-          <td class="px-4 py-3">
-            <button class="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="editCoach(${coach.id})">Modifier</button>
-            <button class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 ml-2" onclick="deleteCoach(${coach.id})">Supprimer</button>
-          </td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
+            async getItems(resourceClassId, callback) {
+                const url = `${this.apiOmk}items?resource_class_id=${resourceClassId}&key_identity=${this.ident}&key_credential=${this.key}`;
+                try {
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
 
-    // Function to edit a coach
-    function editCoach(id) {
-      const coach = coachData.find(c => c.id === id);
-      if (coach) {
-        document.getElementById('name').value = coach.name;
-        document.getElementById('specialty').value = coach.specialty;
-        document.getElementById('experience').value = coach.experience;
-        openAddForm();
-        // You can add more logic here to handle the edit functionality
-      }
-    }
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error('Erreur du serveur :', errorText);
+                        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+                    }
 
-    // Function to delete a coach
-    function deleteCoach(id) {
-      const index = coachData.findIndex(c => c.id === id);
-      if (index !== -1) {
-        coachData.splice(index, 1);
-        updateTable(coachData);
-      }
-    }
+                    const result = await response.json();//Convertit la réponse en JSON
+                    callback(result);
+                } catch (error) {
+                    console.error('Erreur lors de la récupération des items :', error);
+                    throw error;
+                }
+            }
 
-    // Initialize the table with existing data
-    updateTable(coachData);
-  </script>
+           
+        }
+
+        const auth = new Auth({
+            mail: 'melissaorb02@gmail.com',
+            apiOmk: 'http://www.linuxhelp1.com/api/',
+            ident: '4P0TmOxu1blxpgwLRUKH4WoGpNKI3mpv',
+            key: '4f58Swc1AfNDjAMBfrqueTj6IHrAyWv5',
+        });
+
+        // Function to update the table
+        function updateTable(data) {
+            const tableBody = document.getElementById('coach-body');
+            tableBody.innerHTML = '';
+            data.forEach(coach => {
+                const row = document.createElement('tr');
+                const name = coach['gym:coachName'] ? coach['gym:coachName'][0]['@value'] : 'N/A';
+                const specialty = coach['gym:specialty'] ? coach['gym:specialty'][0]['@value'] : 'N/A';
+                const experience = coach['gym:experience'] ? coach['gym:experience'][0]['@value'] : 'N/A';
+                row.innerHTML = `
+                    <td class="px-4 py-3">${name}</td>
+                    <td class="px-4 py-3">${specialty}</td>
+                    <td class="px-4 py-3">${experience}</td>
+                    <td class="px-4 py-3">
+                        <button class="px-2 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="editCoach(${coach.o_id})">Modifier</button>
+                        <button class="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 ml-2" onclick="deleteCoach(${coach.o_id})">Supprimer</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function editCoach(id) {
+            
+        }
+
+        function deleteCoach(id) {
+        }
+
+        // Initialize the table with existing data
+        auth.getItems(142, function (coaches) {
+            updateTable(coaches);
+        }).catch((error) => {
+            console.error('Erreur lors de la récupération des coachs :', error);
+        });
+    </script>
 </body>
 </html>
